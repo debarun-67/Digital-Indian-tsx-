@@ -1,0 +1,237 @@
+import React from 'react';
+import { Users, Target, Eye, Award, MapPin, Phone, Mail } from 'lucide-react';
+
+const About = () => {
+  const values = [
+    {
+      icon: <Award className="h-8 w-8 text-blue-600" />,
+      title: 'Excellence',
+      description: 'We strive for excellence in every project, delivering superior quality solutions that exceed expectations.'
+    },
+    {
+      icon: <Users className="h-8 w-8 text-blue-600" />,
+      title: 'Collaboration',
+      description: 'We believe in working closely with our clients, fostering partnerships built on trust and mutual success.'
+    },
+    {
+      icon: <Target className="h-8 w-8 text-blue-600" />,
+      title: 'Innovation',
+      description: 'We embrace cutting-edge technologies and innovative approaches to solve complex business challenges.'
+    },
+    {
+      icon: <Eye className="h-8 w-8 text-blue-600" />,
+      title: 'Transparency',
+      description: 'We maintain open communication and transparency in all our business relationships and processes.'
+    }
+  ];
+
+  const team = [
+    {
+      name: 'John Richardson',
+      role: 'Chief Executive Officer',
+      experience: '20+ years in Technology Leadership',
+      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Sarah Chen',
+      role: 'Chief Technology Officer',
+      experience: '15+ years in Telecom Infrastructure',
+      image: 'https://images.pexels.com/photos/3727511/pexels-photo-3727511.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Michael Rodriguez',
+      role: 'GIS Solutions Director',
+      experience: '12+ years in Geospatial Analytics',
+      image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Emily Watson',
+      role: 'Training & Development Head',
+      experience: '10+ years in Corporate Training',
+      image: 'https://images.pexels.com/photos/3727463/pexels-photo-3727463.jpeg?auto=compress&cs=tinysrgb&w=400'
+    }
+  ];
+
+  return (
+    <div className="pt-20">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-blue-900 to-blue-700 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+              About TechSolutions
+            </h1>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+              Leading the way in technology innovation with over 15 years of experience 
+              in delivering exceptional solutions across industries.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Company Overview */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                Driving Innovation Since 2010
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Founded with a vision to bridge the gap between traditional business operations 
+                and modern technology solutions, TechSolutions has grown to become a trusted 
+                partner for organizations seeking digital transformation.
+              </p>
+              <p className="text-lg text-gray-600 mb-6">
+                Our expertise spans across telecom infrastructure, geospatial solutions, 
+                skill development, and business consultancy. We've successfully delivered 
+                over 500 projects, helping businesses optimize their operations and achieve 
+                sustainable growth.
+              </p>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-blue-600">500+</div>
+                  <div className="text-gray-600">Projects Delivered</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-blue-600">200+</div>
+                  <div className="text-gray-600">Satisfied Clients</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img
+                src="https://images.pexels.com/photos/3184419/pexels-photo-3184419.jpeg?auto=compress&cs=tinysrgb&w=800"
+                alt="Team working on technology solutions"
+                className="rounded-lg shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission, Vision, Values */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="text-center">
+              <div className="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Target className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+              <p className="text-gray-600">
+                To empower businesses with innovative technology solutions that enhance 
+                connectivity, improve efficiency, and drive sustainable growth through 
+                expert consultation and cutting-edge infrastructure.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Eye className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
+              <p className="text-gray-600">
+                To be the leading technology solutions provider globally, recognized for 
+                our innovation, expertise, and commitment to transforming businesses 
+                through advanced technology integration.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-green-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Award className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Commitment</h3>
+              <p className="text-gray-600">
+                We are committed to delivering exceptional quality, maintaining the highest 
+                standards of professionalism, and building long-term partnerships based 
+                on trust, reliability, and mutual success.
+              </p>
+            </div>
+          </div>
+
+          {/* Values */}
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Core Values</h3>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              These fundamental values guide our decisions and shape our culture.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((value, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-md text-center">
+                <div className="mb-4 flex justify-center">
+                  {value.icon}
+                </div>
+                <h4 className="text-xl font-semibold text-gray-900 mb-2">{value.title}</h4>
+                <p className="text-gray-600">{value.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership Team */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Leadership Team
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Meet the experienced professionals who drive our company's vision and ensure 
+              exceptional service delivery for every client.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {team.map((member, index) => (
+              <div key={index} className="text-center group">
+                <div className="relative mb-4 overflow-hidden rounded-lg">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-64 object-cover transition-transform group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-blue-600 bg-opacity-0 group-hover:bg-opacity-20 transition-all"></div>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">{member.name}</h3>
+                <p className="text-blue-600 font-medium mb-2">{member.role}</p>
+                <p className="text-gray-600 text-sm">{member.experience}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-6">
+            Ready to Work With Us?
+          </h2>
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            Let's discuss how our expertise and commitment to excellence can help 
+            transform your business objectives into successful outcomes.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex items-center justify-center space-x-2">
+              <Phone className="h-5 w-5 text-orange-400" />
+              <span>+1 (555) 123-4567</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2">
+              <Mail className="h-5 w-5 text-orange-400" />
+              <span>info@techsolutions.com</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2">
+              <MapPin className="h-5 w-5 text-orange-400" />
+              <span>123 Tech Street, Innovation City</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default About;
