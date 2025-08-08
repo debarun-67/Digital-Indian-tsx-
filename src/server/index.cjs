@@ -11,8 +11,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
 const upload = multer({ dest: "uploads/" });
 
 app.post("/api/contact", upload.single("resume"), async (req, res) => {
@@ -29,7 +27,7 @@ app.post("/api/contact", upload.single("resume"), async (req, res) => {
       },
     });
 
-    if (!data.success || data.score < 0.1) {
+    if (!data.success || data.score < 0.5) {
       console.log("CAPTCHA score:", data.score);
       return res.status(400).json({ error: "Failed CAPTCHA verification", score: data.score });
     }
