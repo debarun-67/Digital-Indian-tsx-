@@ -6,7 +6,7 @@ import logo from '../assets/logo.png';
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full mx-auto px-[25px] max-w-[calc(100%-100px)] py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
@@ -87,10 +87,13 @@ const Footer = () => {
                   EN-9, Salt Lake, Sec-5, Kolkata-700091
                 </a>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-left space-x-3">
                 <Phone className="h-5 w-5 text-orange-500" />
                 <a href="tel:+917908735132" className="text-gray-400 hover:text-white transition-colors">
                   +91 7908735132
+                </a>
+                <a href="tel:+919830640814" className="text-gray-400 hover:text-white transition-colors">
+                  +91 9830640814
                 </a>
               </div>
               <div className="flex items-center space-x-3">
@@ -105,7 +108,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2025 Digital Indian. All rights reserved. | Privacy Policy | Terms of Service
+            © 2025 Digital Indian. All rights reserved.
           </p>
         </div>
       </div>

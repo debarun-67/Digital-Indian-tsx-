@@ -6,9 +6,11 @@ import logo from '../assets/logo.png';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [theme, setTheme] = useState('light');
+  const [scrollProgress, setScrollProgress] = useState(0);
   const location = useLocation();
 
   useEffect(() => {
+    // Theme logic
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
@@ -19,6 +21,19 @@ const Header = () => {
       setTheme('dark');
       document.documentElement.classList.add('dark');
     }
+
+    // Scroll progress logic
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -46,20 +61,26 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto px-[25px] max-w-[calc(100%-100px)]">
         <div className="flex justify-between items-center py-4">
           {/* Logo and company info group */}
-          <Link to="/" className="flex items-start space-x-2">
-            <img src={logo} alt="Digital Indian Logo" className="h-10 w-auto" />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold">
-                <span className="text-orange-500">DIGITAL</span>
-                <span className="text-green-500 ml-1">INDIAN</span>
-              </span>
-              <span className="text-xs text-gray-900 dark:text-gray-200 font-medium">transforming new india</span>
-              <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">www.digitalindian.co.in</span>
-            </div>
-          </Link>
+          <a
+  href="https://www.digitalindian.co.in"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-start space-x-2"
+>
+  <img src={logo} alt="Digital Indian Logo" className="h-10 w-auto" />
+  <div className="flex flex-col">
+    <span className="text-xl font-bold">
+      <span className="text-orange-500">DIGITAL</span>
+      <span className="text-green-500 ml-1">INDIAN</span>
+    </span>
+    <span className="text-xs text-gray-900 dark:text-gray-200 font-medium">Transforming New India</span>
+    <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">www.digitalindian.co.in</span>
+  </div>
+</a>
+
 
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center space-x-6">
@@ -86,12 +107,25 @@ const Header = () => {
               Get Quote
             </Link>
 
-            {/* Dark mode toggle button */}
+            {/* Dark mode toggle button with animated border */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className={`relative flex items-center justify-center w-12 h-12 rounded-full 
+                          bg-gray-100 dark:bg-gray-800 transition-colors duration-500
+                          shadow-md dark:shadow-md
+                          group focus:outline-none`}
+              style={{
+                // Scroll animation
+                background: `conic-gradient(from 0deg, #3B82F6 ${scrollProgress}%, ${theme === 'dark' ? '#212429' : '#e0e0e0'} 0%)`,
+              }}
             >
-              {theme === 'dark' ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full 
+                            bg-white dark:bg-gray-900 transition-colors duration-500
+                            shadow-inner dark:shadow-inner`}
+              >
+                {theme === 'dark' ? <Moon className="h-6 w-6 text-gray-400" /> : <Sun className="h-6 w-6 text-gray-700" />}
+              </div>
             </button>
           </div>
 
@@ -99,9 +133,21 @@ const Header = () => {
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className={`relative flex items-center justify-center w-12 h-12 rounded-full 
+                          bg-gray-100 dark:bg-gray-800 transition-colors duration-500
+                          shadow-md dark:shadow-md
+                          group focus:outline-none`}
+              style={{
+                background: `conic-gradient(from 0deg, #3B82F6 ${scrollProgress}%, ${theme === 'dark' ? '#212429' : '#e0e0e0'} 0%)`,
+              }}
             >
-              {theme === 'dark' ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+              <div
+                className={`flex items-center justify-center w-10 h-10 rounded-full 
+                            bg-white dark:bg-gray-900 transition-colors duration-500
+                            shadow-inner dark:shadow-inner`}
+              >
+                {theme === 'dark' ? <Moon className="h-6 w-6 text-gray-400" /> : <Sun className="h-6 w-6 text-gray-700" />}
+              </div>
             </button>
             <button
               className="p-2"
@@ -120,7 +166,7 @@ const Header = () => {
                 <span className="text-orange-500">DIGITAL</span>
                 <span className="text-green-500 ml-1">INDIAN</span>
               </span>
-              <span className="text-sm text-gray-600 font-medium mt-1">transforming new india</span>
+              <span className="text-sm text-gray-600 font-medium mt-1">Transforming new India</span>
               <span className="text-sm text-gray-600 font-medium mt-1">www.digitalindian.co.in</span>
             </div>
             <nav className="flex flex-col space-y-2">
