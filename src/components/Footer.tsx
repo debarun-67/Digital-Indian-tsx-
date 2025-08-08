@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Zap, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Linkedin, Instagram, Youtube } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const Footer = () => {
   return (
@@ -10,19 +11,26 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <Zap className="h-5 w-5 text-white" />
-              </div>
-              <span className="text-xl font-bold">TechSolutions</span>
+              <img src={logo} alt="Digital Indian Logo" className="h-8 w-auto" />
+              <span className="text-xl font-bold">Digital Indian</span>
             </div>
             <p className="text-gray-400 mb-4">
               Leading provider of technology solutions specializing in telecom infrastructure,
               GIS solutions, and professional development services.
             </p>
             <div className="flex space-x-4">
-              <Facebook className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-              <Twitter className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-              <Linkedin className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              <a href="https://www.facebook.com/digitalindian.org/" target="_blank" rel="noopener noreferrer">
+                <Facebook className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              </a>
+              <a href="https://www.linkedin.com/company/digital-indian/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              </a>
+              <a href="https://www.instagram.com/digital_indian16/?igsh=bWJ5dGZjbjJkZXht#" target="_blank" rel="noopener noreferrer">
+                <Instagram className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              </a>
+              <a href="https://www.youtube.com/@digitalindianbusinesssolut108" target="_blank" rel="noopener noreferrer">
+                <Youtube className="h-5 w-5 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              </a>
             </div>
           </div>
 
@@ -70,15 +78,26 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-orange-500" />
-                <span className="text-gray-400">123 Tech Street, Innovation City, TC 12345</span>
+                <a
+                  href="http://maps.google.com/?q=EN-9, Salt Lake, Sec-5, Kolkata-700091"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  EN-9, Salt Lake, Sec-5, Kolkata-700091
+                </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-orange-500" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
+                <a href="tel:+917908735132" className="text-gray-400 hover:text-white transition-colors">
+                  +91 7908735132
+                </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-orange-500" />
-                <span className="text-gray-400">info@techsolutions.com</span>
+                <a href="mailto:info@digitalindian.co.in" className="text-gray-400 hover:text-white transition-colors">
+                  info@digitalindian.co.in
+                </a>
               </div>
             </div>
           </div>
@@ -86,7 +105,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2025 TechSolutions. All rights reserved. | Privacy Policy | Terms of Service
+            © 2025 Digital Indian. All rights reserved. | Privacy Policy | Terms of Service
           </p>
         </div>
       </div>

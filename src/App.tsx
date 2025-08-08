@@ -12,7 +12,7 @@ import Blog from './pages/Blog';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
