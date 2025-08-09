@@ -3,8 +3,8 @@ const express = require("express");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
-const axios = require("axios");
 const fs = require("fs");
+const { RecaptchaEnterpriseServiceClient } = require("@google-cloud/recaptcha-enterprise");
 
 const app = express();
 app.use(cors());
@@ -13,30 +13,57 @@ app.use(express.urlencoded({ extended: true }));
 
 const upload = multer({ dest: "uploads/" });
 
+// Initialize reCAPTCHA Enterprise client
+const recaptchaClient = new RecaptchaEnterpriseServiceClient();
+
+async function verifyRecaptchaEnterprise(token, expectedAction) {
+  const projectID = process.env.GOOGLE_PROJECT_ID;
+  const siteKey = process.env.RECAPTCHA_SITE_KEY;
+  const projectPath = recaptchaClient.projectPath(projectID);
+
+  const [response] = await recaptchaClient.createAssessment({
+    assessment: {
+      event: {
+        token,
+        siteKey,
+      },
+    },
+    parent: projectPath,
+  });
+
+  // Token validity
+  if (!response.tokenProperties.valid) {
+    console.log("Invalid token reason:", response.tokenProperties.invalidReason);
+    return { success: false, score: 0 };
+  }
+
+  // Ensure action matches
+  if (response.tokenProperties.action !== expectedAction) {
+    console.log("Action mismatch:", response.tokenProperties.action);
+    return { success: false, score: 0 };
+  }
+
+  const score = response.riskAnalysis.score;
+  console.log("CAPTCHA score:", score);
+  return { success: score >= 0.5, score };
+}
+
 app.post("/api/contact", upload.single("resume"), async (req, res) => {
   const { name, email, message, captcha } = req.body;
   const resume = req.file;
 
-  // Step 1: Verify reCAPTCHA token
+  // Step 1: Verify reCAPTCHA Enterprise
   try {
-    const verifyURL = `https://www.google.com/recaptcha/siteverify`;
-    const { data } = await axios.post(verifyURL, null, {
-      params: {
-        secret: process.env.RECAPTCHA_SECRET_KEY,
-        response: captcha
-      },
-    });
-
-    if (!data.success || data.score < 0.5) {
-      console.log("CAPTCHA score:", data.score);
-      return res.status(400).json({ error: "Failed CAPTCHA verification", score: data.score });
+    const result = await verifyRecaptchaEnterprise(captcha, "submit");
+    if (!result.success) {
+      return res.status(400).json({ error: "Failed CAPTCHA verification", score: result.score });
     }
   } catch (err) {
     console.error("CAPTCHA verification error:", err);
     return res.status(500).json({ error: "CAPTCHA verification failed" });
   }
 
-  // Step 2: Send Email with resume
+  // Step 2: Send email
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -52,16 +79,11 @@ app.post("/api/contact", upload.single("resume"), async (req, res) => {
       subject: "New Contact Form Submission",
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
       attachments: resume
-        ? [
-            {
-              filename: resume.originalname,
-              path: resume.path,
-            },
-          ]
+        ? [{ filename: resume.originalname, path: resume.path }]
         : [],
     });
 
-    // Delete the uploaded file
+    // Delete uploaded file
     if (resume?.path) fs.unlinkSync(resume.path);
 
     res.status(200).json({ message: "Message sent successfully!" });
