@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   }
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  // Preflight requests
+  
   if (req.method === "OPTIONS") {
     return res.sendStatus(200);
   }
@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 // File upload setup
 const upload = multer({ dest: "uploads/" });
 
-// Contact API
+// 📩 Contact API
 app.post("/api/contact", upload.single("resume"), async (req, res) => {
   const { name, email, message, captcha } = req.body;
   const resume = req.file;
