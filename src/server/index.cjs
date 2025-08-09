@@ -27,7 +27,7 @@ app.post("/api/contact", upload.single("resume"), async (req, res) => {
       },
     });
 
-    if (!data.success || data.score < 0.2) {
+    if (!data.success || data.score < 1) {
       console.log("CAPTCHA score:", data.score);
       return res.status(400).json({ error: "Failed CAPTCHA verification", score: data.score });
     }
