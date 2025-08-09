@@ -63,7 +63,7 @@ const Contact = () => {
       formDataToSend.append('captcha', token);
 
       // ✅ Use relative path so Vercel serverless function works
-      const response = await fetch('/api/contact', {
+      const response = await fetch("https://my-backend.onrender.com/api/contact",{
         method: 'POST',
         body: formDataToSend,
       });
