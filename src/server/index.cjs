@@ -17,24 +17,24 @@ app.post("/api/contact", upload.single("resume"), async (req, res) => {
   const { name, email, message, captcha } = req.body;
   const resume = req.file;
 
-  // Step 1: Verify reCAPTCHA token
-  try {
-    const verifyURL = `https://www.google.com/recaptcha/siteverify`;
-    const { data } = await axios.post(verifyURL, null, {
-      params: {
-        secret: process.env.RECAPTCHA_SECRET_KEY,
-        response: captcha
-      },
-    });
+  // // Step 1: Verify reCAPTCHA token
+  // try {
+  //   const verifyURL = `https://www.google.com/recaptcha/siteverify`;
+  //   const { data } = await axios.post(verifyURL, null, {
+  //     params: {
+  //       secret: process.env.RECAPTCHA_SECRET_KEY,
+  //       response: captcha
+  //     },
+  //   });
 
-    if (!data.success || data.score < 0.2) {
-      console.log("CAPTCHA score:", data.score);
-      return res.status(400).json({ error: "Failed CAPTCHA verification", score: data.score });
-    }
-  } catch (err) {
-    console.error("CAPTCHA verification error:", err);
-    return res.status(500).json({ error: "CAPTCHA verification failed" });
-  }
+  //   if (!data.success || data.score < 0.2) {
+  //     console.log("CAPTCHA score:", data.score);
+  //     return res.status(400).json({ error: "Failed CAPTCHA verification", score: data.score });
+  //   }
+  // } catch (err) {
+  //   console.error("CAPTCHA verification error:", err);
+  //   return res.status(500).json({ error: "CAPTCHA verification failed" });
+  // }
 
   // Step 2: Send Email with resume
   const transporter = nodemailer.createTransport({

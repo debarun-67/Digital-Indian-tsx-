@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Paperclip } from 'lucide-react';
 import mapThumbnail from '../assets/thumbnail_map.png';
-
-// Declare grecaptcha globally
-declare global {
-  interface Window {
-    grecaptcha: any;
-  }
-}
-
-const RECAPTCHA_SITE_KEY = '6LfubZ4rAAAAAAMD-wue0qn2upb0e2ty11hFVcEF'; // Your reCAPTCHA v3 site key
 
 const Contact = () => {
   const officeAddress = 'EN-9, Salt Lake, Sec-5, Kolkata-700091';
@@ -21,15 +12,6 @@ const Contact = () => {
   });
   const [resume, setResume] = useState<File | null>(null);
   const [status, setStatus] = useState('');
-  const [captchaReady, setCaptchaReady] = useState(false);
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    script.onload = () => setCaptchaReady(true);
-    document.body.appendChild(script);
-  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -45,22 +27,12 @@ const Contact = () => {
     e.preventDefault();
     setStatus('Sending...');
 
-    if (!captchaReady || !window.grecaptcha) {
-      setStatus('Captcha not ready.');
-      return;
-    }
-
     try {
-      const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {
-        action: 'submit',
-      });
-
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
       formDataToSend.append('message', formData.message);
       if (resume) formDataToSend.append('resume', resume);
-      formDataToSend.append('captcha', token);
 
       const response = await fetch('http://localhost:5000/api/contact', {
         method: 'POST',
@@ -129,50 +101,47 @@ const Contact = () => {
                 ></textarea>
               </div>
               <div>
-  <label htmlFor="resume" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-    Resume/Attachment (Optional)
-  </label>
-  <div className="mt-1 flex items-center justify-center w-full">
-    <label
-      htmlFor="resume"
-      className={`flex items-center justify-center w-full px-4 py-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-md cursor-pointer bg-white dark:bg-gray-700 hover:border-blue-500 transition-colors duration-200 ${
-        resume ? 'border-blue-500' : ''
-      }`}
-    >
-      {/* Show file name if resume is selected, else show the Paperclip */}
-      {resume ? (
-        <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">{resume.name}</span>
-      ) : (
-        <>
-          <Paperclip className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-2" />
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Choose file...</span>
-        </>
-      )}
-      <input
-        type="file"
-        id="resume"
-        accept=".pdf"
-        onChange={handleFileChange}
-        className="sr-only"
-      />
-    </label>
-  </div>
-  {/* Optional: Add a remove option */}
-  {resume && (
-    <button
-      type="button"
-      onClick={() => setResume(null)}
-      className="mt-2 px-2 py-1 text-xs rounded text-red-600 hover:bg-gray-200 dark:hover:bg-gray-800"
-    >
-      Remove file
-    </button>
-  )}
-</div>
+                <label htmlFor="resume" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Resume/Attachment (Optional)
+                </label>
+                <div className="mt-1 flex items-center justify-center w-full">
+                  <label
+                    htmlFor="resume"
+                    className={`flex items-center justify-center w-full px-4 py-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-md cursor-pointer bg-white dark:bg-gray-700 hover:border-blue-500 transition-colors duration-200 ${
+                      resume ? 'border-blue-500' : ''
+                    }`}
+                  >
+                    {resume ? (
+                      <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">{resume.name}</span>
+                    ) : (
+                      <>
+                        <Paperclip className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-2" />
+                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Choose file...</span>
+                      </>
+                    )}
+                    <input
+                      type="file"
+                      id="resume"
+                      accept=".pdf"
+                      onChange={handleFileChange}
+                      className="sr-only"
+                    />
+                  </label>
+                </div>
+                {resume && (
+                  <button
+                    type="button"
+                    onClick={() => setResume(null)}
+                    className="mt-2 px-2 py-1 text-xs rounded text-red-600 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  >
+                    Remove file
+                  </button>
+                )}
+              </div>
 
               <button
                 type="submit"
-                disabled={!captchaReady}
-                className="w-full px-6 py-3 rounded-md text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+                className="w-full px-6 py-3 rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
                 Send Message
               </button>
