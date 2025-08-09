@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
-const cors = require("cors");
 const axios = require("axios");
 const fs = require("fs");
 
