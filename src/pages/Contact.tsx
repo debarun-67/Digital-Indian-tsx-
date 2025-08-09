@@ -62,7 +62,7 @@ const Contact = () => {
       if (resume) formDataToSend.append('resume', resume);
       formDataToSend.append('captcha', token);
 
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch('http://digitalindian.vercel.app/api/contact', {
         method: 'POST',
         body: formDataToSend,
       });
