@@ -62,7 +62,8 @@ const Contact = () => {
       if (resume) formDataToSend.append('resume', resume);
       formDataToSend.append('captcha', token);
 
-      const response = await fetch('https://digitalindian.vercel.app/api/contact', {
+      // ✅ Use relative path so Vercel serverless function works
+      const response = await fetch('/api/contact', {
         method: 'POST',
         body: formDataToSend,
       });
@@ -129,45 +130,43 @@ const Contact = () => {
                 ></textarea>
               </div>
               <div>
-  <label htmlFor="resume" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-    Resume/Attachment (Optional)
-  </label>
-  <div className="mt-1 flex items-center justify-center w-full">
-    <label
-      htmlFor="resume"
-      className={`flex items-center justify-center w-full px-4 py-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-md cursor-pointer bg-white dark:bg-gray-700 hover:border-blue-500 transition-colors duration-200 ${
-        resume ? 'border-blue-500' : ''
-      }`}
-    >
-      {/* Show file name if resume is selected, else show the Paperclip */}
-      {resume ? (
-        <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">{resume.name}</span>
-      ) : (
-        <>
-          <Paperclip className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-2" />
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Choose file...</span>
-        </>
-      )}
-      <input
-        type="file"
-        id="resume"
-        accept=".pdf"
-        onChange={handleFileChange}
-        className="sr-only"
-      />
-    </label>
-  </div>
-  {/* Optional: Add a remove option */}
-  {resume && (
-    <button
-      type="button"
-      onClick={() => setResume(null)}
-      className="mt-2 px-2 py-1 text-xs rounded text-red-600 hover:bg-gray-200 dark:hover:bg-gray-800"
-    >
-      Remove file
-    </button>
-  )}
-</div>
+                <label htmlFor="resume" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Resume/Attachment (Optional)
+                </label>
+                <div className="mt-1 flex items-center justify-center w-full">
+                  <label
+                    htmlFor="resume"
+                    className={`flex items-center justify-center w-full px-4 py-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-md cursor-pointer bg-white dark:bg-gray-700 hover:border-blue-500 transition-colors duration-200 ${
+                      resume ? 'border-blue-500' : ''
+                    }`}
+                  >
+                    {resume ? (
+                      <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">{resume.name}</span>
+                    ) : (
+                      <>
+                        <Paperclip className="h-5 w-5 text-gray-400 dark:text-gray-500 mr-2" />
+                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Choose file...</span>
+                      </>
+                    )}
+                    <input
+                      type="file"
+                      id="resume"
+                      accept=".pdf"
+                      onChange={handleFileChange}
+                      className="sr-only"
+                    />
+                  </label>
+                </div>
+                {resume && (
+                  <button
+                    type="button"
+                    onClick={() => setResume(null)}
+                    className="mt-2 px-2 py-1 text-xs rounded text-red-600 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  >
+                    Remove file
+                  </button>
+                )}
+              </div>
 
               <button
                 type="submit"
